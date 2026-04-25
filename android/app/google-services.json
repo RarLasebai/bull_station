@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502922810197",
+    "project_id": "login-auth-10b90",
+    "storage_bucket": "login-auth-10b90.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502922810197:android:c3d33cdaab541935c0d5dc",
+        "android_client_info": {
+          "package_name": "com.example.bull_station"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502922810197-c83qqpa2s3po98hdki2c123onoke9pta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_pbDqrh4RLtgZKQLHWeEgHfcl0912pdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502922810197-c83qqpa2s3po98hdki2c123onoke9pta.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
