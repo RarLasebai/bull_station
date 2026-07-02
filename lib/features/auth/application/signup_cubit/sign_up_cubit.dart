@@ -32,7 +32,7 @@ class SignupCubit extends Cubit<SignupStates> {
   final GlobalKey<FormState> otpFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> signUpOneFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> signUpTwoFormKey = GlobalKey<FormState>();
-
+String currentVerificationId = "";
   String groupValue = "";
   String pin = "";
   String? userToken;
@@ -52,57 +52,67 @@ class SignupCubit extends Cubit<SignupStates> {
   void verfiyPhone({required BuildContext context}) async {
     emit(SignupLoadingState());
     try {
-      print(completePhoneNumber!);
+      print("جاري الإرسال للرقم: ${completePhoneNumber!.trim()}");
       await auth.verifyPhoneNumber(
-        // phoneNumber: "+966555555558",
         phoneNumber: completePhoneNumber!.trim(),
         verificationCompleted: (PhoneAuthCredential credential) async {
+          // في حال التحقق التلقائي (خاصة في أندرويد)
           await auth.signInWithCredential(credential);
-          print(credential);
+          emit(OtpVerifiedSuccessState()); // الانتقال لحالة النجاح مباشرة
         },
         verificationFailed: (FirebaseAuthException e) {
+          print("خطأ فيريفاير: ${e.code}");
+          // ضروري جداً: إيميت للخطأ ليتوقف الـ Loading في الواجهة
+          emit(SignupErrorState(e.message ?? e.toString()));
+          
           if (e.code == 'invalid-phone-number') {
-            showToast(context, 'invalid-phone-number');
+            showToast(context, 'رقم الهاتف غير صحيح');
+          } else if (e.code == 'too-many-requests') {
+            showToast(context, 'محاولات كثيرة، يرجى الانتظار');
           }
-          emit(SignupErrorState(e.toString()));
         },
         codeSent: (String verificationId, int? resendToken) async {
-          emit(CodeSentSuccessState(verificationId));
+          this.currentVerificationId = verificationId; // تخزين المعرف الجديد
+          emit(CodeSentSuccessState(verificationId)); // يتوقف الـ Loading هنا
         },
-        timeout: const Duration(seconds: 0),
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        timeout: const Duration(seconds: 60),
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // تخزين المعرف حتى لو انتهى الوقت
+          this.currentVerificationId = verificationId;
+        },
       );
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       emit(SignupErrorState(e.toString()));
     }
   }
-
   //verfiy OTP
   void verfiyOtp({
     required BuildContext context,
-    // required String otp,
-    required String verificationId,
+    required String verificationId, // المعرف المبدئي
     required Function onSuccess,
   }) async {
     emit(SignupLoadingState());
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId,
+        // نستخدم المعرف الموجود في الكيوبت إذا كان متاحاً، وإلا نستخدم القادم من الشاشة
+        verificationId: currentVerificationId.isNotEmpty ? currentVerificationId : verificationId,
         smsCode: otpController.text,
       );
-      User? user = ((await auth.signInWithCredential(credential)).user);
+      
+      UserCredential userCredential = await auth.signInWithCredential(credential);
+      User? user = userCredential.user;
 
       if (user != null) {
-        //uuser verified
         userToken = await user.getIdToken();
+        emit(OtpVerifiedSuccessState());
       }
-      emit(OtpVerifiedSuccessState());
     } on FirebaseAuthException catch (e) {
-      print(e.toString());
-      emit(OtpWrongState());
+      print("خطأ OTP: ${e.toString()}");
+      emit(OtpWrongState()); // سيتوقف الـ Loading هنا ويظهر خطأ الكود
+    } catch (e) {
+      emit(SignupErrorState(e.toString()));
     }
   }
-
   Future signup(BuildContext context, {bool isOwner = false}) async {
     emit(SignupLoadingState());
 
@@ -209,6 +219,7 @@ class SignupCubit extends Cubit<SignupStates> {
       emit(ImagePickedSuccessState());
     } else {
       print('No image selected.');
+      print('No images selected.');
       emit(ImagePickedErrorState());
     }
   }

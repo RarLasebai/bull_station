@@ -55,7 +55,7 @@ class ProfileService {
 
     if (identityImage != null && identityImage.isNotEmpty) {
       request.files.add(
-        await http.MultipartFile.fromPath('profile_photo', identityImage),
+        await http.MultipartFile.fromPath('profile_photo_url', identityImage),
       );
     }
 

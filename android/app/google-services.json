@@ -7,12 +7,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:502922810197:android:c3d33cdaab541935c0d5dc",
+        "mobilesdk_app_id": "1:502922810197:android:c83052d234d149a1c0d5dc",
         "android_client_info": {
-          "package_name": "com.example.bull_station"
+          "package_name": "com.bullstation"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "502922810197-3ud43e7tka6l2180n8glauaj3q5td2jh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bullstation",
+            "certificate_hash": "191c8c0fd53a753782f25268f67c0458de34161b"
+          }
+        },
+        {
+          "client_id": "502922810197-njitcnq99gd4tlpemq5cubb64u3km3tj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bullstation",
+            "certificate_hash": "fdbf5df9e96ed0ba6c192a3ef2c0e61d1d2b5811"
+          }
+        },
+        {
+          "client_id": "502922810197-t5m7u46ms7nkq2s36f57ok1go7678dt7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bullstation",
+            "certificate_hash": "9f815424ae64b47239a662bd46b5bceb0a640f32"
+          }
+        },
         {
           "client_id": "502922810197-c83qqpa2s3po98hdki2c123onoke9pta.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +53,57 @@
             {
               "client_id": "502922810197-c83qqpa2s3po98hdki2c123onoke9pta.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "502922810197-vs2cens8duqnf9kmsp38q1b1liutmd9q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bullStation"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502922810197:android:c3d33cdaab541935c0d5dc",
+        "android_client_info": {
+          "package_name": "com.example.bull_station"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502922810197-bcph2236vcjhv53tak1v2n49b8ql26nl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bull_station",
+            "certificate_hash": "9f815424ae64b47239a662bd46b5bceb0a640f32"
+          }
+        },
+        {
+          "client_id": "502922810197-c83qqpa2s3po98hdki2c123onoke9pta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_pbDqrh4RLtgZKQLHWeEgHfcl0912pdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502922810197-c83qqpa2s3po98hdki2c123onoke9pta.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "502922810197-vs2cens8duqnf9kmsp38q1b1liutmd9q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bullStation"
+              }
             }
           ]
         }

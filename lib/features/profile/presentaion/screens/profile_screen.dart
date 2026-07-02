@@ -36,14 +36,10 @@ class ProfileScreen extends StatelessWidget {
                     radius: 60.r,
                     backgroundColor:
                         softGrey, // لون خلفية في حال كانت الصورة شفافة أو لم تحمل بعد
-                    backgroundImage:
-                        (user.identityImage != null &&
-                            user.identityImage!.isNotEmpty)
-                        ? NetworkImage(user.identityImage!)
+                    backgroundImage: (user.photo.isNotEmpty)
+                        ? NetworkImage(user.photo)
                         : null,
-                    child:
-                        (user.identityImage == null ||
-                            user.identityImage!.isEmpty)
+                    child: (user.photo.isEmpty)
                         ? Icon(Icons.person, size: 40.r)
                         : null,
                   ),

@@ -3,11 +3,13 @@ import 'package:bull_station/core/utils/screens/splash_screen.dart';
 import 'package:bull_station/features/booking/application/booking_cubit.dart';
 import 'package:bull_station/features/home/application/category_cubit/category_cubit.dart';
 import 'package:bull_station/features/home/application/home_cubit/home_cubit.dart';
+import 'package:bull_station/features/home/application/map_cubit/map_cubit.dart';
 import 'package:bull_station/features/home/application/notification_cubit/notification_cubit.dart';
 import 'package:bull_station/features/profile/application/profile_cubit.dart';
 import 'package:bull_station/firebase_options.dart';
 import 'package:bull_station/l10n/app_localizations.dart';
 import 'package:bull_station/notification_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// معالج إشعارات الخلفية
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -36,7 +37,24 @@ Future<void> main() async {
 
   // 4. إعدادات الـ Bloc
   Bloc.observer = MyBlocObserver();
+// await FirebaseAppCheck.instance.activate(
 
+//   providerAndroid: AndroidDebugProvider(
+//     debugToken: 'your-android-debug-token', 
+//   ),
+//   );
+//   try {
+//   // جلب التوكن يدوياً وطباعته
+//   String? debugToken = await FirebaseAppCheck.instance.getToken();
+//   print("--- COPY THIS TOKEN: $debugToken ---");
+// } catch (e) {
+//   // إذا ظهر خطأ، سيظل التوكن مطبوعاً في سجلات النظام (Logs)
+//   print("App Check Error: $e");
+// }
+await FirebaseAuth.instance.setSettings(
+  forceRecaptchaFlow: false, 
+  appVerificationDisabledForTesting: false,
+);
   runApp(const MyApp());
 }
 
@@ -56,6 +74,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => BookingCubit()),
           BlocProvider(create: (context) => ProfileCubit()),
           BlocProvider(create: (context) => NotificationCubit()),
+          BlocProvider(create: (context) => MapCubit()),
         ],
         child: MaterialApp(
           title: 'Bull Station',

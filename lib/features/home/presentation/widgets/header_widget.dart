@@ -27,10 +27,8 @@ class HeaderWidget extends StatelessWidget {
           CircleAvatar(
             radius: 25,
             backgroundColor: Colors.grey[200], // لون احتياطي
-            backgroundImage: userModel.identityImage != null
-                ? NetworkImage(userModel.identityImage!)
-                : null,
-            child: userModel.identityImage == null
+            backgroundImage: NetworkImage(userModel.photo),
+            child: userModel.photo == null
                 ? Icon(
                     Icons.person,
                     size: 25,
@@ -68,9 +66,13 @@ class HeaderWidget extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotificationScreen(isOwner: userModel.accountType == "client" ? false : true)),
-            );
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationScreen(
+                    isOwner: userModel.accountType == "client" ? false : true,
+                  ),
+                ),
+              );
             },
             child: Container(
               height: 40.h,

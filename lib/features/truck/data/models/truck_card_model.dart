@@ -8,6 +8,9 @@ class TruckCardModel {
   final String status;
   final String mainImage;
   final String? pickupLocation;
+  final double? latitude; 
+  final double? longitude; 
+  final String? mapIconUrl; 
 
   TruckCardModel({
     required this.id,
@@ -19,9 +22,11 @@ class TruckCardModel {
     required this.mainImage,
     required this.status,
     this.pickupLocation,
+     this.latitude,
+     this.longitude,
+    this.mapIconUrl,
   });
 
-  // Factory constructor to create a TruckCardModel from a JSON map
   factory TruckCardModel.fromJson(Map<String, dynamic> json) {
     return TruckCardModel(
       id: json['id'] as int,
@@ -33,10 +38,13 @@ class TruckCardModel {
       name: json['name'] as String,
       mainImage: json['main_image'] as String,
       pickupLocation: json['pickup_location'] as String?,
+      // تحويل الإحداثيات بأمان من الـ API
+      latitude: double.tryParse(json['latitude'].toString()) ?? 0.0,
+      longitude: double.tryParse(json['longitude'].toString()) ?? 0.0,
+      mapIconUrl: json['map_icon_url'] as String?,
     );
   }
 
-  // Method to convert a TruckCardModel to a JSON map
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -48,6 +56,9 @@ class TruckCardModel {
       'name': name,
       'main_image': mainImage,
       'pickup_location': pickupLocation,
+      'latitude': latitude,
+      'longitude': longitude,
+      'map_icon_url': mapIconUrl,
     };
   }
 }
