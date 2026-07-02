@@ -17,7 +17,6 @@ class PhoneNumberField extends StatelessWidget {
     required this.onNumberChanged,
     required this.validator,
   });
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -77,7 +76,9 @@ class PhoneNumberField extends StatelessWidget {
 
         initialCountryCode: 'SA', // يمكنك تعيين رمز دولة افتراضي
         onChanged: (phone) {
-          onNumberChanged(phone.completeNumber);
+          
+          onNumberChanged("${phone.countryCode}${phone.number}");
+          // onNumberChanged(phone.completeNumber);
                 },
       ),
     );

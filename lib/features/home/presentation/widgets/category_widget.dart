@@ -11,24 +11,37 @@ class CategoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10, top: 20, bottom: 20),
+      padding: EdgeInsets.only(right: 8.w, top: 10.h, bottom: 10.h),
       child: Container(
-        height: 72.h,
-        width: 72.w,
+        height: 105.h,
+        width: 100.w,
+        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.r),
+          borderRadius: BorderRadius.circular(6.r),
           border: Border.all(color: darkGrey),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.network(categoryModel.icon, height: 30.h, width: 38.w),
-            SizedBox(height: 8.h),
-            TxtStyle(
-              categoryModel.name,
-              8,
-              fontWeight: FontWeight.w500,
-              textAlignm: TextAlign.center,
+            Image.network(
+              categoryModel.icon,
+              height: 38.h,
+              width: 46.w,
+              fit: BoxFit.contain,
+            ),
+            SizedBox(height: 6.h),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                child: TxtStyle(
+                  categoryModel.name,
+                  11,
+                  fontWeight: FontWeight.w500,
+                  textAlignm: TextAlign.center,
+                  longText: true,
+                ),
+              ),
             ),
           ],
         ),

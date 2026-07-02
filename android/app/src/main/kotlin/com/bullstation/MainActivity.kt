@@ -1,4 +1,4 @@
-package com.example.bull_station
+package com.bullstation
 
 import io.flutter.embedding.android.FlutterActivity
 

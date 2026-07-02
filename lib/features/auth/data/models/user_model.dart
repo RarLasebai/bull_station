@@ -39,8 +39,6 @@ class UserModel {
 
       drivingLicenseImage: json['driving_license_image'] as String?,
       location: json['location'] as String?,
-
-      // التعامل مع التواريخ التي قد تختفي في استجابة التحديث
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'] as String)
           : DateTime.now(), // قيمة افتراضية إذا غاب الحقل
@@ -49,9 +47,9 @@ class UserModel {
           : DateTime.now(),
       phoneVerifiedAt: json['phone_verified_at'] as String?,
       fleetOwnerCode: json['fleet_owner_code'] as String?,
-      photo: json['profile_photo_path'] == null
+      photo: json['profile_photo_url'] == null
           ? "" // قيمة افتراضية إذا لم يكن هناك صورة
-          : "https://bull-station.com/${json['profile_photo_path']}", // بناء رابط الصورة الكامل
+          : json['profile_photo_url'] as String, // استخدام رابط الصورة الكامل
     );
   }
 
@@ -68,7 +66,7 @@ class UserModel {
       'location': location,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
-      'profile_photo_path': photo,
+      'profile_photo_url': photo,
     };
   }
 }

@@ -27,7 +27,7 @@ class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: BlocProvider.of<SignupCubit>(context),
+      value: signupCubit,
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: Form(
@@ -158,18 +158,20 @@ class OtpScreen extends StatelessWidget {
                   SizedBox(height: 7.h),
                   GestureDetector(
                     onTap: () {
-                      signupCubit.verfiyPhone(context: context);
                       signupCubit.otpController.clear();
-                      //navigate to the same screen because of form key duplicating error
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OtpScreen(
-                            signupCubit: signupCubit,
-                            verificationId: verificationId,
-                          ),
-                        ),
-                      );
+  signupCubit.verfiyPhone(context: context);
+                      // signupCubit.verfiyPhone(context: context);
+                      // signupCubit.otpController.clear();
+                      // //navigate to the same screen because of form key duplicating error
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => OtpScreen(
+                      //       signupCubit: signupCubit,
+                      //       verificationId: verificationId,
+                      //     ),
+                        // ),
+                      // );
                     },
                     child: const TxtStyle(
                       "إعادة إرسال الرمز؟",

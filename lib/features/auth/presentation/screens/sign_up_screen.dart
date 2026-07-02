@@ -69,6 +69,7 @@ class SignUpScreen extends StatelessWidget {
                           PhoneNumberField(
                             controller: signupCubit.phoneController,
                             onNumberChanged: (completeNumber) {
+                              print("الرقم المكتشف الآن: $completeNumber");
                               signupCubit.completePhoneNumber = completeNumber;
                             },
                             validator: (value) {
